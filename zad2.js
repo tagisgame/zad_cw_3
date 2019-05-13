@@ -14,12 +14,12 @@ for (let i = 0; i < 20; i++) {
 
 //Liczenie wystąpień
 result += "\nWystąpienia:\n";
-for (let i = 0; i < 10; i++) {
+for (let i = 1; i <= 10; i++) {
   let count = 0;
   for (let j = 0; j < 20; j++) {
     tab[j] === i ? count++ : 0;
   }
-  
+
   result += i + " - " + count + "\n";
 }
 // </editor-fold>
