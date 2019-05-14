@@ -7,34 +7,44 @@ var result = "";
 
 // <editor-fold desc="Input">
 //Inputy podawane przez użytkownika
-
-var decimalNum = readlineSync.questionInt("Podaj liczbę całkowitą: ");
+var decimalNum =
+  readlineSync.questionInt("Podaj liczbę całkowitą: ");
 while ((decimalNum < -2147483648) || (decimalNum > 2147483647)) {
-  console.log("Podana liczba jest za duża/mała! (-2147483648 - 2147483647)");
-  decimalNum = readlineSync.questionInt("Podaj liczbę całkowitą: ");
+  console.log("Podana liczba jest za duża/mała!");
+  decimalNum =
+    readlineSync.questionInt("Podaj liczbę całkowitą: ");
 }
 // </editor-fold>
 
 // <editor-fold desc="Operacje wykonywane przez program">
-var binaryTable = [];
+// Tablica przechowująca bity zapisu ZM
+var zmTable = [];
+// Zmienna przechowująca bit znaku dla ZM
 var sign = decimalNum < 0 ? 1 : 0;
 
-result += "Liczba " + decimalNum + " binarnie: ";
-decimalNum = decimalNum * (decimalNum < 0 ? -1 : 1);
-while(true) {
-  binaryTable.unshift(decimalNum % 2)
-  decimalNum = Math.floor(decimalNum / 2);
+// Przeliczenie dla formatu ZM
+zmBuf = Math.abs(decimalNum);
 
-  if (decimalNum < 1) {
-    binaryTable.unshift(sign);
+while(true) {
+  zmTable.unshift(zmBuf % 2)
+  zmBuf = Math.floor(zmBuf / 2);
+
+  // Jeśli liczba po kolejnym dzieleniu jest ułamkiem
+  // przerwij pętlę i dodaj bit znaku
+  if (zmBuf < 1) {
+    zmTable.unshift(sign);
     break;
   }
 }
+// </editor-fold>
 
-for(let i = 0; i < binaryTable.length; i++){
-  result += binaryTable[i] + (i === 0 ? "." : "");
-}
-
+// <editor-fold desc="Konstrukcja wiadomości końcowej">
+  // Dla ZM
+  zmString = sign + ".";
+  for (let i = 1; i < zmTable.length; i++) {
+    zmString += zmTable[i];
+  }
+  result += decimalNum + " (10)  =  " + zmString + " (ZM)";
 // </editor-fold>
 
 //Wyświetlanie wyniku działania
