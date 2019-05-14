@@ -7,7 +7,8 @@ var result = "";
 
 // <editor-fold desc="Input">
 //Inputy podawane przez użytkownika
-var decimalNum = readlineSync.questionInt("Podaj liczbę całkowitą: ");
+var decimalNum =
+  readlineSync.questionInt("Podaj liczbę całkowitą: ");
 while ((decimalNum < -2147483648) || (decimalNum > 2147483647)) {
   console.log("Podana liczba jest za duża/mała!");
   decimalNum =
